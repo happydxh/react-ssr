@@ -12,29 +12,13 @@ const app = new Koa()
 
 app.use(staticFile('public'))
 
-[
-  {
-    route: {
-      path: '/',
-      component: [Object],
-      exact: true,
-      loadData: undefined,
-      key: 'home'
-    },
-    match: { path: '/', url: '/', isExact: true, params: {} }
-  }
-]
-
 app.use(async ctx => {
   const store = getStore();
   const matchedRoutes = matchRoutes(routeConfig, ctx.request.url);
   const promises = [];
   matchedRoutes.forEach(item => {
     if (item.route.loadData) {
-      const promise = new Promise((resolve, reject) => {
-        item.route.loadData(store).then(resolve).catch(resolve);
-      })
-      promises.push(promise);
+      promises.push(item.route.loadData(store));
     };
   });
   await Promise.all(promises)

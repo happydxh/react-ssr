@@ -12,6 +12,7 @@ const Home = props => {
   const getHomeList = () => {
     props.getHomeList()
   }
+  
   useEffect(() => {
     if (!props.list.length) {
       props.getHomeList()

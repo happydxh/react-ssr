@@ -5,7 +5,7 @@ const cors = require('koa-cors')
 const app = new Koa()
 
 app.use(cors({
-  maxAge: 3600 // 用来指定本次预检请求的有效期
+  maxAge: 3600
 }))
 
 router.get('/list', (ctx, next) => {
